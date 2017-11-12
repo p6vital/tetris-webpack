@@ -5,9 +5,15 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         index: './src/assets/js/index',
-        vendor: [
+        'react': [
             'react',
             'react-dom',
+        ],
+        'mui': [
+            'material-ui',
+        ],
+        'jquery': [
+            'jquery',
         ],
     },
     output: {
@@ -36,8 +42,8 @@ module.exports = {
             template: 'src/assets/view/index.html',
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'js/vendor.bundle.js',
+            names: ['react', 'mui', 'jquery'],
+            filename: 'js/vendor/[name].bundle.js',
         }),
     ],
 };
