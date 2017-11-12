@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm run clean && npm run format && mocha --require babel-core/register ./test/**/*.test.js*",
+    "test": "npm run clean && npm run format && mocha --require babel-core/register \"test/**/*.spec.js*\"",
     "build": "webpack",
     "clean": "rm -rf dist",
     "format": "./node_modules/.bin/eslint --fix . --ext .js,.jsx",
