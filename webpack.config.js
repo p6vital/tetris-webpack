@@ -5,14 +5,14 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         index: './src/assets/js/index',
-        'react': [
+        react: [
             'react',
             'react-dom',
         ],
-        'mui': [
+        mui: [
             'material-ui',
         ],
-        'jquery': [
+        jquery: [
             'jquery',
         ],
     },

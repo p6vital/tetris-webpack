@@ -4,9 +4,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && webpack",
+    "build": "webpack",
+    "clean": "rm -rf dist",
+    "format": "./node_modules/.bin/eslint --fix . --ext .js,.jsx",
     "server": "node server.js",
-    "start": "npm run build && npm run server"
+    "start": "npm run clean && npm run format && npm run build && npm run server"
   },
   "author": "p6vital",
   "license": "ISC",

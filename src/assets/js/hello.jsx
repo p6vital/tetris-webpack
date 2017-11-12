@@ -9,14 +9,12 @@ const styles = theme => ({
     },
 });
 
-const Hello = ({ classes, name }) => {
-    return (
-        <Card className={classes.card}>
-            <CardContent>
-                <Button>{`Hello ${name}`}</Button>
-            </CardContent>
-        </Card>
-    );
-}
+const Hello = ({ classes, name }) => (
+    <Card className={classes.card}>
+        <CardContent>
+            <Button>{`Hello ${name}`}</Button>
+        </CardContent>
+    </Card>
+);
 
 export default withStyles(styles)(Hello);
