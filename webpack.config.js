@@ -1,9 +1,14 @@
 const path = require('path');
+const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/assets/js/index'
+    index: './src/assets/js/index',
+    vendor: [
+      'react',
+      'react-dom',
+    ]
   },
   output: {
     filename: 'js/[name].bundle.js',
@@ -29,6 +34,10 @@ module.exports = {
       title: 'Code Splitting',
       filename: 'index.html',
       template: 'src/assets/view/index.html',
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin({ 
+      name: 'vendor', 
+      filename: 'js/vendor.bundle.js',
+    }),
   ],
 };
