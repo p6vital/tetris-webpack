@@ -7,12 +7,14 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      title: 'Code Splitting'
+      title: 'Code Splitting',
+      filename: 'index.html'
     })
   ],
   output: {
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'js/[name].bundle.js',
+    chunkFilename: 'js/[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: 'assets/',
   }
 };
