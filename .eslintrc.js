@@ -21,11 +21,14 @@ module.exports = {
         'import/no-dynamic-require': 'off',
         'react/prefer-stateless-function': 'off',
         'react/prop-types': 'off',
+        'no-multi-assign': 'off',
+        'import/prefer-default-export': 'off',
     },
     'globals': {
         'describe': true,
         'it': true,
         'document': true,
+        'window': true,
     },
     'parser': 'babel-eslint',
 };

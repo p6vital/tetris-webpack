@@ -9,6 +9,10 @@ module.exports = {
             'react',
             'react-dom',
         ],
+        redux: [
+            'redux',
+            'react-redux',
+        ],
         mui: [
             'material-ui',
         ],
@@ -42,7 +46,7 @@ module.exports = {
             template: 'src/assets/view/index.html',
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['react', 'mui', 'jquery'],
+            names: ['react', 'redux', 'mui', 'jquery'],
             filename: 'js/vendor/[name].bundle.js',
         }),
     ],
