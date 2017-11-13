@@ -10,7 +10,20 @@ class Tetris extends React.Component {
     componentWillMount() {
         this.props.registerReducer();
         this.props.initializeBoard();
-        this.props.boardNext();
+    }
+
+    componentDidMount() {
+        this.start();
+    }
+
+    start() {
+        this.interval = setInterval(() => {
+            this.props.boardNext();
+        }, 2000);
+    }
+
+    stop() {
+        clearInterval(this.interval);
     }
 
     render() {

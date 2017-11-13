@@ -1,23 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-
-const SQARE_SIZE = 20;
-const ROW_NUM = 24;
-const COL_NUM = 10;
+import Config from './config';
 
 const styles = theme => ({
     board: {
         position: 'relative',
-        height: SQARE_SIZE * ROW_NUM,
-        width: SQARE_SIZE * COL_NUM,
+        height: Config.SQARE_SIZE * Config.ROW_NUM,
+        width: Config.SQARE_SIZE * Config.COL_NUM,
         left: '50%',
-        marginLeft: -(SQARE_SIZE * COL_NUM) / 2,
+        marginLeft: -(Config.SQARE_SIZE * Config.COL_NUM) / 2,
     },
     square: {
         position: 'absolute',
-        height: SQARE_SIZE,
-        width: SQARE_SIZE,
+        height: Config.SQARE_SIZE,
+        width: Config.SQARE_SIZE,
         backgroundColor: theme.palette.primary[200],
         border: 'solid 1px #FFFFFF',
     },
@@ -49,10 +46,10 @@ const Board = ({ board, flyingTetromino, classes }) => {
         return (
             <div
                 key={`square-${i}-${j}`}
-                className={`${classes.square} ${additionalClass}`}
+                className={`${classes.square} ${additionalClass || ''}`}
                 style={{
-                    top: SQARE_SIZE * i,
-                    left: SQARE_SIZE * j,
+                    top: Config.SQARE_SIZE * i,
+                    left: Config.SQARE_SIZE * j,
                 }}
             />
         );

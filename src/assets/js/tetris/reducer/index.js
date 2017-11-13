@@ -1,4 +1,5 @@
 import TetrisCore from '../../../../server/tetris/core';
+import Config from '../config';
 
 const ActionTypes = {
     PLAYER_MOVE: 'PLAYER_MOVE',
@@ -6,18 +7,14 @@ const ActionTypes = {
     BOARD_INITIALIZE: 'BOARD_INITIALIZE',
 };
 
-const ROW_NUM = 24;
-const COL_NUM = 10;
-const INVISIBLE_ROW_NUMBER = 4;
-
 const generateTetromino = () => {
     const tetrominos = TetrisCore.Tetrominos;
     const keys = Object.keys(tetrominos);
     const tetromino = tetrominos[keys[Math.floor(keys.length * Math.random())]];
 
     const position = [
-        INVISIBLE_ROW_NUMBER - tetromino.length,
-        Math.ceil((COL_NUM - tetromino[0].length) / 2),
+        Config.INVISIBLE_ROW_NUMBER - tetromino.length,
+        Math.ceil((Config.COL_NUM - tetromino[0].length) / 2),
     ];
 
     return {
@@ -26,11 +23,11 @@ const generateTetromino = () => {
     };
 };
 
-const createBoard = () => Array(ROW_NUM).fill(Array(COL_NUM).fill(0));
+const createBoard = () => Array(Config.ROW_NUM).fill(Array(Config.COL_NUM).fill(0));
 
 const isGameOver = (board) => {
-    for (let i = 0; i < INVISIBLE_ROW_NUMBER; i++) {
-        for (let j = 0; j < COL_NUM; j++) {
+    for (let i = 0; i < Config.INVISIBLE_ROW_NUMBER; i++) {
+        for (let j = 0; j < Config.COL_NUM; j++) {
             if (board[i][j]) {
                 return true;
             }
