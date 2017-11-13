@@ -5,6 +5,7 @@ import AppActions from '../reducer/actions';
 import reducer from './reducer';
 import TetrisActions from './reducer/actions';
 import Board from './board';
+import Next from './next';
 
 class Tetris extends React.Component {
     componentWillMount() {
@@ -19,7 +20,7 @@ class Tetris extends React.Component {
     start() {
         this.interval = setInterval(() => {
             this.props.boardNext();
-        }, 2000);
+        }, 500);
     }
 
     stop() {
@@ -30,6 +31,7 @@ class Tetris extends React.Component {
         return (
             <div>
                 <Board board={this.props.board} flyingTetromino={this.props.flyingTetromino} />
+                <Next nextTetromino={this.props.nextTetromino} />
             </div>
         );
     }

@@ -39,7 +39,9 @@ const isGameOver = (board) => {
 
 export default (state = {}, action) => {
     const { type } = action;
-    const { board, flyingTetromino, gameOver } = state;
+    const {
+        board, flyingTetromino, nextTetromino, gameOver,
+    } = state;
 
     if (gameOver) {
         return state;
@@ -47,10 +49,10 @@ export default (state = {}, action) => {
 
     switch (type) {
         case ActionTypes.BOARD_INITIALIZE:
-            return { board: createBoard() };
+            return { board: createBoard(), nextTetromino: generateTetromino() };
         case ActionTypes.BOARD_NEXT:
             if (!flyingTetromino) {
-                return Object.assign({}, state, { flyingTetromino: generateTetromino() });
+                return Object.assign({}, state, { flyingTetromino: nextTetromino, nextTetromino: generateTetromino() });
             }
 
             // Try moving down first
@@ -73,7 +75,8 @@ export default (state = {}, action) => {
             const gameOver = isGameOver(eliminatedBoard);
 
             return Object.assign({}, state, {
-                flyingTetromino: gameOver ? undefined : generateTetromino(),
+                nextTetromino: gameOver ? undefined : generateTetromino(),
+                flyingTetromino: gameOver ? undefined : nextTetromino,
                 board: eliminatedBoard,
                 eliminatedRows: eliminatedResult.rows,
                 persistedBoard,
