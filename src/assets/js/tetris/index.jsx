@@ -1,17 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Actions from '../reducer/actions';
+import AppActions from '../reducer/actions';
 import reducer from './reducer';
+import TetrisActions from './reducer/actions';
+import Board from './board';
 
 class Tetris extends React.Component {
     componentWillMount() {
         this.props.registerReducer();
+        this.props.initializeBoard();
+        this.props.boardNext();
     }
 
     render() {
         return (
-            <div>Tetris</div>
+            <div>
+                <Board board={this.props.board} flyingTetromino={this.props.flyingTetromino} />
+            </div>
         );
     }
 }
@@ -20,7 +26,13 @@ const mapStateToProps = (state, ownProps) => state[ownProps.id] || {};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     registerReducer: () => {
-        dispatch(Actions.registerReducer(ownProps.id, reducer));
+        dispatch(AppActions.registerReducer(ownProps.id, reducer));
+    },
+    initializeBoard: () => {
+        dispatch(AppActions.reduce(ownProps.id, TetrisActions.initializeBoard()));
+    },
+    boardNext: () => {
+        dispatch(AppActions.reduce(ownProps.id, TetrisActions.boardNext()));
     },
 });
 

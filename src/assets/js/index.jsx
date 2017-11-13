@@ -27,18 +27,14 @@ const theme = createMuiTheme({
 });
 
 const LoadableComponent = Loadable({
-    loader: () => new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve();
-        }, 5000);
-    }).then(() => import(/* webpackChunkName: 'tetris' */ './tetris')),
+    loader: () => import(/* webpackChunkName: 'tetris' */ './tetris'),
     loading: Loading,
 });
 
 const app = (
     <Provider store={getStore()}>
         <MuiThemeProvider theme={theme}>
-            <Card style={{ height: '200px', width: '100%', position: 'relative' }}>
+            <Card style={{ minHeight: '200px', width: '100%', position: 'relative' }}>
                 <CardContent>
                     <LoadableComponent id={getNextComponentId()} />
                 </CardContent>
@@ -47,7 +43,4 @@ const app = (
     </Provider>
 );
 
-setTimeout(() => {
-    ReactDOM.render(app, document.getElementById('app'));
-}, 5000);
-
+ReactDOM.render(app, document.getElementById('app'));
