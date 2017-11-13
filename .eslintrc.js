@@ -23,6 +23,7 @@ module.exports = {
         'react/prop-types': 'off',
         'no-multi-assign': 'off',
         'import/prefer-default-export': 'off',
+        'no-underscore-dangle': 'off',
     },
     'globals': {
         'describe': true,

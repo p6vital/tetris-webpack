@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run clean && npm run format && mocha --require babel-core/register \"test/**/*.spec.js*\"",
-    "build": "webpack",
+    "build": "webpack && cp -r src/assets/static dist/static",
     "clean": "rm -rf dist",
     "format": "./node_modules/.bin/eslint --fix . --ext .js,.jsx",
     "server": "node server.js",
@@ -29,8 +29,10 @@
     "jquery": "^3.2.1",
     "material-ui": "^1.0.0-beta.20",
     "mocha": "^4.0.1",
+    "prop-types": "^15.6.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
+    "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "webpack": "^3.8.1"

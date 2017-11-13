@@ -8,6 +8,7 @@ module.exports = {
         react: [
             'react',
             'react-dom',
+            'react-loadable',
         ],
         redux: [
             'redux',
