@@ -6,21 +6,17 @@ import reducer from './reducer';
 import TetrisActions from './reducer/actions';
 import Board from './board';
 import Next from './next';
+import Scheduler from './scheduler';
 
 class Tetris extends React.Component {
     componentWillMount() {
+        this.scheduler = new Scheduler(this.props.boardNext);
         this.props.registerReducer();
         this.props.initializeBoard();
     }
 
     componentDidMount() {
-        this.start();
-    }
-
-    start() {
-        this.interval = setInterval(() => {
-            this.props.boardNext();
-        }, 500);
+        this.scheduler.start();
     }
 
     stop() {
