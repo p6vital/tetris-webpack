@@ -18,7 +18,7 @@ const styles = theme => ({
         backgroundColor: theme.palette.primary[200],
         border: 'solid 1px #FFFFFF',
     },
-    blackSquare: {
+    occupied: {
         backgroundColor: '#000',
     },
 });
@@ -29,26 +29,31 @@ const Board = ({ board, flyingTetromino, classes }) => {
     }
 
     const gridDom = board.map((row, i) => row.map((square, j) => {
-        let additionalClass;
+        if (i < Config.INVISIBLE_ROW_NUMBER) {
+            return undefined;
+        }
+
+        let additionalClass = '';
+
         if (flyingTetromino) {
             const { position, tetromino } = flyingTetromino;
             const x = i - position[0];
             const y = j - position[1];
             if (x >= 0 && x < tetromino.length && y >= 0 && tetromino[x][y]) {
-                additionalClass = classes.blackSquare;
+                additionalClass = classes.occupied;
             }
         }
 
         if (board[i][j]) {
-            additionalClass = classes.blackSquare;
+            additionalClass = classes.occupied;
         }
 
         return (
             <div
                 key={`square-${i}-${j}`}
-                className={`${classes.square} ${additionalClass || ''}`}
+                className={`${classes.square} ${additionalClass}`}
                 style={{
-                    top: Config.SQARE_SIZE * i,
+                    top: Config.SQARE_SIZE * (i - Config.INVISIBLE_ROW_NUMBER),
                     left: Config.SQARE_SIZE * j,
                 }}
             />

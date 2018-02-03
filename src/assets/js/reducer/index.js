@@ -38,7 +38,7 @@ const reducer = (state = getInitialState(), action) => {
             }
 
             const componentState = state[componentId] || {};
-            const updatedComponentState = componentReducer(componentState, action.data);
+            const updatedComponentState = componentReducer(componentState, action.data, componentId);
 
             return updateComponentState(state, componentId, updatedComponentState);
 

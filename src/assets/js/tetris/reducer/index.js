@@ -1,10 +1,17 @@
+import AppActions from '../../reducer/actions';
+import { getStore } from '../../reducer';
+
 import TetrisCore from '../../../../server/tetris/core';
 import Config from '../config';
 
-const ActionTypes = {
-    PLAYER_MOVE: 'PLAYER_MOVE',
-    BOARD_NEXT: 'BOARD_NEXT',
-    BOARD_INITIALIZE: 'BOARD_INITIALIZE',
+import TetrisActions, { ActionTypes } from './actions';
+import Scheduler from './scheduler';
+
+export const GameStates = {
+    NOT_STARTED: 'NOT_STARTED',
+    STARTED: 'STARTED',
+    PAUSED: 'PAUSED',
+    GAME_OVER: 'GAME_OVER',
 };
 
 const generateTetromino = () => {
@@ -37,68 +44,116 @@ const isGameOver = (board) => {
     return false;
 };
 
-export default (state = {}, action) => {
+const handleGameState = (state = {}, action, componentId) => {
     const { type } = action;
-    const {
-        board, flyingTetromino, nextTetromino, gameOver,
-    } = state;
-
-    if (gameOver) {
-        return state;
-    }
+    const { gameState } = state;
 
     switch (type) {
-        case ActionTypes.BOARD_INITIALIZE:
-            return { board: createBoard(), nextTetromino: generateTetromino() };
-        case ActionTypes.BOARD_NEXT:
-            if (!flyingTetromino) {
-                return Object.assign({}, state, { flyingTetromino: nextTetromino, nextTetromino: generateTetromino() });
-            }
+        case ActionTypes.RESET_GAME:
+            const store = getStore();
 
-            // Try moving down first
-            const moveDownResult = TetrisCore.move({
-                board: state.board,
-                tetromino: flyingTetromino.tetromino,
-                position: flyingTetromino.position,
-                action: TetrisCore.Action.MOVE_DOWN,
-            });
+            return {
+                board: createBoard(),
+                nextTetromino: generateTetromino(),
+                gameState: GameStates.NOT_STARTED,
+                scheduler: new Scheduler(() => {
+                    store.dispatch(AppActions.reduce(componentId, TetrisActions.boardNext()));
+                }),
+            };
 
-            if (moveDownResult.success) {
-                const updatedFlyingTetromino = { tetromino: moveDownResult.tetromino, position: moveDownResult.position };
-                return Object.assign({}, state, { flyingTetromino: updatedFlyingTetromino });
-            }
+        case ActionTypes.START_GAME:
+            state.scheduler.start();
+            return Object.assign({}, state, { gameState: GameStates.STARTED });
 
-            // If it doesn't succeed, it means the flyingTetromino reached the bottom
-            const persistedBoard = TetrisCore.persist(board, flyingTetromino.tetromino, flyingTetromino.position);
-            const eliminatedResult = TetrisCore.eliminate(persistedBoard);
-            const eliminatedBoard = eliminatedResult.board;
-            const gameOver = isGameOver(eliminatedBoard);
-
-            return Object.assign({}, state, {
-                nextTetromino: gameOver ? undefined : generateTetromino(),
-                flyingTetromino: gameOver ? undefined : nextTetromino,
-                board: eliminatedBoard,
-                eliminatedRows: eliminatedResult.rows,
-                persistedBoard,
-                gameOver,
-            });
-
-        case ActionTypes.PLAYER_MOVE:
-            const moveResult = TetrisCore.move({
-                board: state.board,
-                tetromino: flyingTetromino.tetromino,
-                position: flyingTetromino.position,
-                action: action.move,
-            });
-
-            if (moveResult.success) {
-                const updatedFlyingTetromino = { tetromino: moveResult.tetromino, position: moveResult.position };
-                return Object.assign({}, state, { flyingTetromino: updatedFlyingTetromino });
-            }
-
-            return state;
+        case ActionTypes.PAUSE_GAME:
+            state.scheduler.stop();
+            return Object.assign({}, state, { gameState: GameStates.PAUSED });
 
         default:
             return state;
     }
+};
+
+const handleBoardNext = (state = {}, action) => {
+    const { type } = action;
+    const {
+        board, flyingTetromino, nextTetromino,
+    } = state;
+
+    if (type !== ActionTypes.BOARD_NEXT) {
+        return state;
+    }
+
+    if (!flyingTetromino) {
+        return Object.assign({}, state, { flyingTetromino: nextTetromino, nextTetromino: generateTetromino() });
+    }
+
+    // Try moving down first
+    const moveDownResult = TetrisCore.move({
+        board: state.board,
+        tetromino: flyingTetromino.tetromino,
+        position: flyingTetromino.position,
+        action: TetrisCore.Action.MOVE_DOWN,
+    });
+
+    if (moveDownResult.success) {
+        const updatedFlyingTetromino = { tetromino: moveDownResult.tetromino, position: moveDownResult.position };
+        return Object.assign({}, state, { flyingTetromino: updatedFlyingTetromino });
+    }
+
+    // If it doesn't succeed, it means the flyingTetromino reached the bottom
+    const persistedBoard = TetrisCore.persist(board, flyingTetromino.tetromino, flyingTetromino.position);
+    const eliminatedResult = TetrisCore.eliminate(persistedBoard);
+    const eliminatedBoard = eliminatedResult.board;
+    const gameOver = isGameOver(eliminatedBoard);
+    const gameState = gameOver ? GameStates.GAME_OVER : state.gameState;
+
+    return Object.assign({}, state, {
+        nextTetromino: gameOver ? undefined : generateTetromino(),
+        flyingTetromino: gameOver ? undefined : nextTetromino,
+        board: eliminatedBoard,
+        eliminatedRows: eliminatedResult.rows,
+        persistedBoard,
+        gameState,
+    });
+};
+
+const handlePlayerMove = (state = {}, action) => {
+    const { type } = action;
+    const { flyingTetromino } = state;
+
+    if (type !== ActionTypes.PLAYER_MOVE) {
+        return state;
+    }
+
+    const moveResult = TetrisCore.move({
+        board: state.board,
+        tetromino: flyingTetromino.tetromino,
+        position: flyingTetromino.position,
+        action: action.move,
+    });
+
+    if (moveResult.success) {
+        const updatedFlyingTetromino = { tetromino: moveResult.tetromino, position: moveResult.position };
+        return Object.assign({}, state, { flyingTetromino: updatedFlyingTetromino });
+    }
+
+    return state;
+};
+
+export default (state = {}, action, componentId) => {
+    const { type } = action;
+    const { gameState } = state;
+
+    if (gameState === GameStates.GAME_OVER && type !== ActionTypes.START_GAME) {
+        return state;
+    }
+
+    let updatedState = Object.assign({}, state);
+
+    updatedState = handleGameState(updatedState, action, componentId);
+    updatedState = handleBoardNext(updatedState, action);
+    updatedState = handlePlayerMove(updatedState, action);
+
+    return updatedState;
 };
