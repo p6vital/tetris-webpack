@@ -50,6 +50,7 @@ const handleGameState = (state = {}, action, componentId) => {
 
     switch (type) {
         case ActionTypes.RESET_GAME:
+            state.scheduler && state.scheduler.stop();
             const store = getStore();
 
             return {
@@ -122,7 +123,7 @@ const handlePlayerMove = (state = {}, action) => {
     const { type } = action;
     const { flyingTetromino } = state;
 
-    if (type !== ActionTypes.PLAYER_MOVE) {
+    if (type !== ActionTypes.PLAYER_MOVE || !flyingTetromino) {
         return state;
     }
 
@@ -145,7 +146,7 @@ export default (state = {}, action, componentId) => {
     const { type } = action;
     const { gameState } = state;
 
-    if (gameState === GameStates.GAME_OVER && type !== ActionTypes.START_GAME) {
+    if (gameState === GameStates.GAME_OVER && type !== ActionTypes.RESET_GAME) {
         return state;
     }
 
@@ -153,7 +154,10 @@ export default (state = {}, action, componentId) => {
 
     updatedState = handleGameState(updatedState, action, componentId);
     updatedState = handleBoardNext(updatedState, action);
-    updatedState = handlePlayerMove(updatedState, action);
+
+    if (gameState === GameStates.STARTED) {
+        updatedState = handlePlayerMove(updatedState, action);
+    }
 
     return updatedState;
 };

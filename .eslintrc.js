@@ -24,6 +24,8 @@ module.exports = {
         'no-multi-assign': 'off',
         'import/prefer-default-export': 'off',
         'no-underscore-dangle': 'off',
+        'consistent-return': 'off',
+        'no-unused-expressions': 'off',
     },
     'globals': {
         'describe': true,

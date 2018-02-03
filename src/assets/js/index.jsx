@@ -34,7 +34,7 @@ const LoadableComponent = Loadable({
 const app = (
     <Provider store={getStore()}>
         <MuiThemeProvider theme={theme}>
-            <Card style={{ minHeight: '200px', width: '100%', position: 'relative' }}>
+            <Card style={{ height: 440, width: '100%', position: 'relative' }}>
                 <CardContent>
                     <LoadableComponent id={getNextComponentId()} />
                 </CardContent>

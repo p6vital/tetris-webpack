@@ -11,7 +11,7 @@ const levelIntervals = [
     50,
 ];
 
-const normalizeLevel = level => Math.min(Math.max(0, level), levelIntervals.length - 1);
+const normalizeLevel = level => (level < levelIntervals.length ? level : 0);
 
 class Scheduler {
     constructor(callback, level = 0) {
@@ -24,7 +24,6 @@ class Scheduler {
         this.level = level;
         this.interval = levelIntervals[level];
         this.callback = callback;
-        this.levalChange = 0;
     }
 
     start() {
