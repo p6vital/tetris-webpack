@@ -5,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     entry: {
         index: './src/client/js/index',
+        style: './src/client/css/index',
         react: [
             'react',
             'react-dom',
@@ -28,13 +29,19 @@ module.exports = {
         publicPath: '/',
     },
     module: {
-        rules: [{
-            test: /\.jsx?$/,
-            exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
+        rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                },
             },
-        },
+            {
+                test: /\.scss$/,
+                exclude: /(node_modules)/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
         ],
     },
     resolve: {
