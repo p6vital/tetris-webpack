@@ -52,23 +52,19 @@ class Explosive extends React.Component {
         if (!Component) {
             // Place holder
             return (
-                <div className="explosive" >
-                    <div className="placeholder" />
-                </div>
+                <div className="explosive" />
             );
         }
 
         if (!exploded) {
             // Exploding
             return (
-                <div className="explosive" >
-                    <div className="placeholder" />
-                </div>
+                <div className="explosive exploding" />
             );
         }
 
         return (
-            <div className="explosive" >
+            <div className="explosive exploded" >
                 <Component {...this.props}>
                     {this.props.children}
                 </Component>

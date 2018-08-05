@@ -9,7 +9,6 @@ module.exports = {
         'vars-on-top': 'off',
         'no-case-declarations': 'off',
         'no-cond-assign': 'off',
-        'no-unused-vars': 'off',
         'react/forbid-prop-types': 'off',
         'no-shadow': 'off',
         'react/no-array-index-key': 'off',

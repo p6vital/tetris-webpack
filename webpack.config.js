@@ -1,6 +1,6 @@
 const path = require('path');
-const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -28,13 +28,13 @@ module.exports = {
         publicPath: '/',
     },
     module: {
-        loaders: [
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loaders: ['babel-loader'],
-
+        rules: [{
+            test: /\.jsx?$/,
+            exclude: /(node_modules)/,
+            use: {
+                loader: 'babel-loader',
             },
+        },
         ],
     },
     resolve: {
@@ -42,13 +42,40 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            title: 'Code Splitting',
+            title: 'Explosive',
             filename: 'index.html',
             template: 'index.html',
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['react', 'redux', 'mui', 'jquery'],
-            filename: 'js/vendor/[name].bundle.js',
-        }),
     ],
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: false,
+                    mangle: false,
+                },
+            }),
+        ],
+        splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            maxSize: 0,
+            minChunks: 2,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true,
+                },
+            },
+        },
+    },
 };

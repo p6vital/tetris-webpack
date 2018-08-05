@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Config from './config';
 
-const styles = theme => ({
+const styles = () => ({
     square: {
         position: 'absolute',
         height: Config.SQARE_SIZE,

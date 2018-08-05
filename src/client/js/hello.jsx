@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardContent } from 'material-ui/Card';
 import { withStyles } from 'material-ui/styles';
 
-const styles = theme => ({
+const styles = () => ({
     card: {
         width: '100%',
     },

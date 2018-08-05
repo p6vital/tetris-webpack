@@ -8,6 +8,7 @@
     "clean": "./node_modules/gulp/bin/gulp.js clean",
     "format": "./node_modules/.bin/eslint --fix . --ext .js,.jsx",
     "server": "node server.js",
+    "dev-server": "./node_modules/gulp/bin/gulp.js dev-server",
     "start": "npm run clean && npm run format && npm run build && npm run server"
   },
   "author": "p6vital",
@@ -42,9 +43,12 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "gulp": "^3.9.1",
-    "html-webpack-plugin": "^2.30.1",
+    "gulp-util": "^3.0.8",
+    "html-webpack-plugin": "^3.2.0",
     "mocha": "^4.0.1",
-    "webpack": "^3.8.1",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.16.4",
+    "webpack-dev-server": "^3.1.5",
     "webpack-stream": "^5.1.0"
   }
 }

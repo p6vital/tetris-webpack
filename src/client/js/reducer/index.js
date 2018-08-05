@@ -2,10 +2,6 @@ import { createStore } from 'redux';
 
 import { ActionTypes } from './actions';
 
-const getInitialReducerState = () => ({
-    reducer: undefined,
-});
-
 const updateComponentState = (state, componentId, componentState) => Object.assign({}, state, { [componentId]: componentState });
 
 const getInitialState = () => ({});
@@ -30,7 +26,6 @@ const reducer = (state = getInitialState(), action) => {
             return updateComponentState(state, componentId, undefined);
 
         case ActionTypes.REDUCE:
-            const { data } = action;
             const componentReducer = componentReducers[componentId];
 
             if (typeof componentReducer !== 'function') {

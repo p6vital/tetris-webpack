@@ -11,5 +11,5 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use('/js', express.static(path.join(__dirname, 'dist', 'js')));
 
 app.listen(3000, () => {
-    console.log('Example app listening on port 3000!');
+    console.log('Listening on port 3000!');
 });

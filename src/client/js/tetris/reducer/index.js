@@ -46,7 +46,6 @@ const isGameOver = (board) => {
 
 const handleGameState = (state = {}, action, componentId) => {
     const { type } = action;
-    const { gameState } = state;
 
     switch (type) {
         case ActionTypes.RESET_GAME:
