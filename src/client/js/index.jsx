@@ -15,6 +15,8 @@ import { getStore } from './reducer';
 import { getNextComponentId } from './utils/component-utils';
 import { loadModule } from './utils/module-utils';
 
+import Explosive from './common/explosive';
+
 
 import Loading from './common/loading';
 
@@ -26,17 +28,21 @@ const theme = createMuiTheme({
     },
 });
 
-const LoadableComponent = Loadable({
-    loader: () => import(/* webpackChunkName: 'tetris' */ './tetris'),
-    loading: Loading,
-});
+// const LoadableComponent = Loadable({
+//     loader: () => import(/* webpackChunkName: 'tetris' */ './tetris'),
+//     loading: Loading,
+// });
+// <LoadableComponent id={getNextComponentId()} />
 
 const app = (
     <Provider store={getStore()}>
         <MuiThemeProvider theme={theme}>
             <Card style={{ height: 440, width: '100%', position: 'relative' }}>
                 <CardContent>
-                    <LoadableComponent id={getNextComponentId()} />
+                    <Explosive
+                        explosiveLoader={() => import(/* webpackChunkName: 'tetris' */ './tetris')}
+                        id={getNextComponentId()}
+                    />
                 </CardContent>
             </Card>
         </MuiThemeProvider>

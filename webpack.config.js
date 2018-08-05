@@ -4,7 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: './src/assets/js/index',
+        index: './src/client/js/index',
         react: [
             'react',
             'react-dom',
@@ -25,7 +25,7 @@ module.exports = {
         filename: 'js/[name].bundle.js',
         chunkFilename: 'js/[name].chunk.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: 'assets/',
+        publicPath: '/',
     },
     module: {
         loaders: [
@@ -44,7 +44,7 @@ module.exports = {
         new HTMLWebpackPlugin({
             title: 'Code Splitting',
             filename: 'index.html',
-            template: 'src/assets/view/index.html',
+            template: 'index.html',
         }),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['react', 'redux', 'mui', 'jquery'],

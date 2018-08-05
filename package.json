@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run clean && npm run format && mocha --require babel-core/register \"test/**/*.spec.js*\"",
-    "build": "webpack && cp -r src/assets/static dist/static",
-    "clean": "rm -rf dist",
+    "build": "./node_modules/gulp/bin/gulp.js",
+    "clean": "./node_modules/gulp/bin/gulp.js clean",
     "format": "./node_modules/.bin/eslint --fix . --ext .js,.jsx",
     "server": "node server.js",
     "start": "npm run clean && npm run format && npm run build && npm run server"
@@ -13,31 +13,38 @@
   "author": "p6vital",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.2",
+    "jquery": "^3.2.1",
+    "material-ui": "^1.0.0-beta.20",
+    "prop-types": "^15.6.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.1.0",
+    "react-jss": "^8.2.1",
+    "react-loadable": "^5.3.1",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
+  },
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "del": "^3.0.0",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
-    "express": "^4.16.2",
+    "gulp": "^3.9.1",
     "html-webpack-plugin": "^2.30.1",
-    "jquery": "^3.2.1",
-    "material-ui": "^1.0.0-beta.20",
     "mocha": "^4.0.1",
-    "prop-types": "^15.6.0",
-    "react": "^16.1.0",
-    "react-dom": "^16.1.0",
-    "react-jss": "^8.2.1",
-    "react-loadable": "^5.3.1",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2",
-    "webpack": "^3.8.1"
-  },
-  "keywords": [],
-  "description": ""
+    "webpack": "^3.8.1",
+    "webpack-stream": "^5.1.0"
+  }
 }
