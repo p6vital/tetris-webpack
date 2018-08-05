@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import $ from 'jquery';
+import classNames from 'classnames';
 
 import TetrisCoreActions from '../../../server/tetris/core/action';
 import AppActions from '../reducer/actions';
@@ -13,31 +14,12 @@ import Next from './next';
 
 const styles = {
     tetris: {
-        height: 400,
-        left: '50%',
-        marginLeft: -160,
-        position: 'absolute',
     },
     board: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: 200,
-        height: 400,
     },
     next: {
-        position: 'absolute',
-        top: 40,
-        left: 240,
-        width: 100,
-        height: 80,
     },
     button: {
-        position: 'absolute',
-        bottom: 20,
-        left: 240,
-        width: 100,
-        height: 40,
     },
 };
 
@@ -115,14 +97,14 @@ class Tetris extends React.Component {
 
     render() {
         return (
-            <div className={this.props.classes.tetris}>
-                <div className={this.props.classes.board}>
+            <div className={classNames(this.props.classes.tetris, 'tetris')}>
+                <div className={classNames(this.props.classes.board, 'board')}>
                     <Board board={this.props.board} flyingTetromino={this.props.flyingTetromino} />
                 </div>
-                <div className={this.props.classes.next}>
+                <div className={classNames(this.props.classes.next, 'next')}>
                     <Next nextTetromino={this.props.nextTetromino} />
                 </div>
-                <div className={this.props.classes.button}>
+                <div className={classNames(this.props.classes.button, 'control-button')}>
                     {this.renderGameControlButton()}
                 </div>
             </div>

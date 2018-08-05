@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <style>
-        .loading {
-            background: url(/static/image/loading.gif) no-repeat;
-            width: 100px;
-            height: 100px;
-            background-size: 100%;
-            position: absolute;
-            left: 50vw;
-            top: 50vh;
-            margin-left: -50px;
-            margin-top: -50px;
-        }
-    </style>
-  </head>
-  <body>
-    <div id="app"><div class="loading"></div></div>
-  </body>
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <style>
+    #app {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="explosive exploding"></div>
+  </div>
+</body>
+
 </html>

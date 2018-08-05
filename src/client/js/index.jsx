@@ -7,7 +7,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
 import grey from 'material-ui/colors/grey';
 import red from 'material-ui/colors/red';
-import Card, { CardContent } from 'material-ui/Card';
 
 import { getStore } from './reducer';
 import { getNextComponentId } from './utils/component-utils';
@@ -25,14 +24,14 @@ const theme = createMuiTheme({
 const app = (
     <Provider store={getStore()}>
         <MuiThemeProvider theme={theme}>
-            <Card style={{ height: 440, width: '100%', position: 'relative' }}>
-                <CardContent>
+            <Explosive>
+                <Explosive>
                     <Explosive
                         explosiveLoader={() => import(/* webpackChunkName: 'tetris' */ './tetris')}
                         id={getNextComponentId()}
                     />
-                </CardContent>
-            </Card>
+                </Explosive>
+            </Explosive>
         </MuiThemeProvider>
     </Provider>
 );

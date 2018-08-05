@@ -14,6 +14,7 @@
   "author": "p6vital",
   "license": "ISC",
   "dependencies": {
+    "classnames": "^2.2.6",
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "material-ui": "^1.0.0-beta.20",
