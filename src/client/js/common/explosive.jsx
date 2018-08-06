@@ -11,12 +11,12 @@ const defaultLoader = () => Promise.resolve(DefaultComponent);
 class Explosive extends React.Component {
     static propTypes = {
         explosiveLoader: PropTypes.func,
-        explosiveDuration: PropTypes.number,
+        duration: PropTypes.number,
         vertical: PropTypes.bool,
     };
 
     static defaultProps = {
-        explosiveDuration: DURATION,
+        duration: DURATION,
         explosiveLoader: defaultLoader,
         vertical: false,
     }
@@ -46,7 +46,7 @@ class Explosive extends React.Component {
                 this.setState({
                     exploded: true,
                 });
-            }, this.props.explosiveDuration);
+            }, this.props.duration);
         }
     }
 
@@ -57,15 +57,7 @@ class Explosive extends React.Component {
     render() {
         const { Component, exploded } = this.state;
 
-        if (!Component) {
-            // Place holder
-            return (
-                <div className="explosive" />
-            );
-        }
-
-        if (!exploded) {
-            // Exploding
+        if (!Component || !exploded) {
             return (
                 <div className="explosive exploding" />
             );

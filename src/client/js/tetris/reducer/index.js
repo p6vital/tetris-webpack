@@ -49,7 +49,10 @@ const handleGameState = (state = {}, action, componentId) => {
 
     switch (type) {
         case ActionTypes.RESET_GAME:
-            state.scheduler && state.scheduler.stop();
+            if (state.scheduler) {
+                state.scheduler.stop();
+            }
+
             const store = getStore();
 
             return {

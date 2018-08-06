@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Config from './config';
 
@@ -52,6 +53,11 @@ const Next = ({ nextTetromino, classes }) => {
             {gridDom}
         </div>
     );
+};
+
+Next.propTypes = {
+    nextTetromino: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Next);

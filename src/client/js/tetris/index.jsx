@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -24,6 +25,23 @@ const styles = {
 };
 
 class Tetris extends React.Component {
+    static propTypes = {
+        registerReducer: PropTypes.func.isRequired,
+        unregisterReducer: PropTypes.func.isRequired,
+        resetGame: PropTypes.func.isRequired,
+        startGame: PropTypes.func.isRequired,
+        pauseGame: PropTypes.func.isRequired,
+        moveLeft: PropTypes.func.isRequired,
+        moveRight: PropTypes.func.isRequired,
+        rotate: PropTypes.func.isRequired,
+        drop: PropTypes.func.isRequired,
+        gameState: PropTypes.string.isRequired,
+        classes: PropTypes.object.isRequired,
+        board: PropTypes.object.isRequired,
+        flyingTetromino: PropTypes.object.isRequired,
+        nextTetromino: PropTypes.object.isRequired,
+    }
+
     componentWillMount() {
         this.props.registerReducer();
         this.props.resetGame();
