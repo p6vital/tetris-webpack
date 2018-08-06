@@ -3,6 +3,7 @@
     height: 100%;
     background: #cecece;
     position: relative;
+    margin: 10px;
 
     &.exploding {
         animation-name: shake;
@@ -17,6 +18,14 @@
       left: 0;
       right: 0;
       top: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.vertical {
+        flex-direction: column;
+      }
     }
 }
 

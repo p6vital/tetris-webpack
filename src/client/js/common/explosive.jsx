@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Card, { CardContent } from 'material-ui/Card';
 
 const DURATION = 500; // ms
@@ -11,11 +12,13 @@ class Explosive extends React.Component {
     static propTypes = {
         explosiveLoader: PropTypes.func,
         explosiveDuration: PropTypes.number,
+        vertical: PropTypes.bool,
     };
 
     static defaultProps = {
         explosiveDuration: DURATION,
         explosiveLoader: defaultLoader,
+        vertical: false,
     }
 
     constructor(props) {
@@ -70,7 +73,11 @@ class Explosive extends React.Component {
 
         return (
             <Card className="explosive exploded explosive-card">
-                <CardContent className="explosive-card-content">
+                <CardContent
+                    className={classNames('explosive-card-content', {
+                        vertical: this.props.vertical,
+                    })}
+                >
                     <Component {...this.props}>
                         {this.props.children}
                     </Component>
