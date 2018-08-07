@@ -25,17 +25,46 @@ const theme = createMuiTheme({
 const app = (
     <Provider store={getStore()}>
         <MuiThemeProvider theme={theme}>
-            <Explosive>
+            <Explosive
+                name="page"
+                duration={500}
+                onExploded={() => {
+                    console.log('Exploded.');
+                }}
+                onChildrenExploded={() => {
+                    console.log('Children Exploded.');
+                    document.getElementById('app').classList.remove('uninitialized');
+                }}
+            >
                 <Explosive
-                    explosiveLoader={() => import(/* webpackChunkName: 'tetris' */ './tetris')}
+                    name="tetris"
+                    className="tetris-explosive"
+                    loader={() => import(/* webpackChunkName: 'tetris' */ './tetris')}
                     id={getNextComponentId()}
+                    duration={1000}
                 />
-                <Explosive vertical>
-                    <Explosive>
+                <Explosive
+                    name="right"
+                    vertical
+                    duration={300}
+                >
+                    <Explosive
+                        name="right-1"
+                        duration={500}
+                    >
                         <Hello />
                     </Explosive>
-                    <Explosive>
+                    <Explosive
+                        name="right-2"
+                        duration={1000}
+                    >
                         <Hello name="Stranger" />
+                    </Explosive>
+                    <Explosive
+                        name="right-3"
+                        duration={300}
+                    >
+                        <Hello name="There" />
                     </Explosive>
                 </Explosive>
             </Explosive>

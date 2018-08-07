@@ -8,22 +8,18 @@
   </title>
   <style>
     #app {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      right: 0;
+      height: auto;
+      transition: height linear 0.5s;
     }
 
-    #app>.explosive {
-      margin: 0;
+    #app.uninitialized {
+      height: 100vh;
     }
   </style>
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" class="uninitialized">
     <div class="explosive exploding"></div>
   </div>
 </body>

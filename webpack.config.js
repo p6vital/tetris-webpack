@@ -1,6 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -53,6 +54,11 @@ module.exports = {
             filename: 'index.html',
             template: 'index.html',
         }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('development'),
+            },
+        }),
     ],
     optimization: {
         minimizer: [
@@ -60,6 +66,10 @@ module.exports = {
                 uglifyOptions: {
                     compress: false,
                     mangle: false,
+                    output: {
+                        beautify: false,
+                        preserve_line: true,
+                    },
                 },
             }),
         ],

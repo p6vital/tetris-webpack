@@ -56,8 +56,12 @@ const Next = ({ nextTetromino, classes }) => {
 };
 
 Next.propTypes = {
-    nextTetromino: PropTypes.object.isRequired,
+    nextTetromino: PropTypes.object,
     classes: PropTypes.object.isRequired,
+};
+
+Next.defaultProps = {
+    nextTetromino: undefined,
 };
 
 export default withStyles(styles)(Next);

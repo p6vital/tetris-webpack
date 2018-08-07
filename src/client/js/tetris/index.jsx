@@ -35,11 +35,18 @@ class Tetris extends React.Component {
         moveRight: PropTypes.func.isRequired,
         rotate: PropTypes.func.isRequired,
         drop: PropTypes.func.isRequired,
-        gameState: PropTypes.string.isRequired,
+        gameState: PropTypes.string,
         classes: PropTypes.object.isRequired,
-        board: PropTypes.object.isRequired,
-        flyingTetromino: PropTypes.object.isRequired,
-        nextTetromino: PropTypes.object.isRequired,
+        board: PropTypes.array,
+        flyingTetromino: PropTypes.object,
+        nextTetromino: PropTypes.object,
+    }
+
+    static defaultProps = {
+        gameState: undefined,
+        board: undefined,
+        flyingTetromino: undefined,
+        nextTetromino: undefined,
     }
 
     componentWillMount() {
